@@ -2,6 +2,8 @@ package com.rhattoxcodingstudies.usermanager.controllers;
 
 
 import com.rhattoxcodingstudies.usermanager.models.UserModel;
+import com.rhattoxcodingstudies.usermanager.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +17,12 @@ import javax.swing.text.html.parser.Entity;
 @RequestMapping("/user")
 public class UserAddController {
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping
     public ResponseEntity<UserModel> registerUser(@RequestBody UserModel userModel) {
-
-        System.out.println(userModel.getEmail());
-        System.out.println(userModel.getPassword());
-        System.out.println(userModel.getBirthday());
-        System.out.println(userModel.getAge());
-
+        userService.saveUser(userModel);
 
         return ResponseEntity.status(200).build();
     }
